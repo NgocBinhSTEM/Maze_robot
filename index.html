@@ -2,23 +2,88 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Cuộc thi "Robot mê cung" năm 2026 - Khoa Hàng không vũ trụ </title>
+  <title>Cuộc thi "Robot mê cung" năm 2026 - Khoa Hàng không vũ trụ</title>
 
   <style>
     body {
       margin: 0;
-      background: #061b45;
+      background: radial-gradient(circle at top, #123b7a, #061b45 60%, #020814);
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      overflow: hidden;
+    }
+
+    /* INTRO */
+    .intro {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      background:
+        linear-gradient(rgba(0,20,60,.85), rgba(0,5,20,.95)),
+        radial-gradient(circle at center, #1d6cff, transparent 45%);
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      animation: introOut 4s ease forwards;
     }
 
-    /* ===== KHUNG CHÍNH - AUTO FIT ===== */
+    .intro-box {
+      text-align: center;
+      color: white;
+      animation: zoomIn 1.2s ease;
+    }
+
+    .intro-box .tag {
+      color: #ffd700;
+      letter-spacing: 5px;
+      font-weight: bold;
+      margin-bottom: 18px;
+    }
+
+    .intro-box h1 {
+      margin: 0;
+      font-size: clamp(32px, 6vw, 76px);
+      text-transform: uppercase;
+      text-shadow: 0 0 25px rgba(255,215,0,.65);
+    }
+
+    .intro-box p {
+      font-size: clamp(15px, 2vw, 24px);
+      color: #dce9ff;
+      margin-top: 14px;
+      letter-spacing: 2px;
+    }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(.85); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes introOut {
+      0%, 70% { opacity: 1; visibility: visible; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+
+    /* POSTER */
+    .page {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: posterIn 4.2s ease forwards;
+    }
+
+    @keyframes posterIn {
+      0%, 65% { opacity: 0; transform: scale(.96); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
     .container {
       position: relative;
-      height: 90vh;                 /* tự co theo chiều cao màn hình */
-      aspect-ratio: 1536 / 1024;    /* giữ đúng tỷ lệ poster */
+      height: 90vh;
+      aspect-ratio: 1536 / 1024;
+      box-shadow: 0 20px 60px rgba(0,0,0,.55);
+      border-radius: 12px;
     }
 
     .poster {
@@ -26,9 +91,9 @@
       height: 100%;
       object-fit: contain;
       display: block;
+      border-radius: 12px;
     }
 
-    /* ===== NÚT CLICK ===== */
     .btn {
       position: absolute;
       border: 3px dashed #FFD700;
@@ -44,20 +109,12 @@
       transform: scale(1.05);
     }
 
-    /* ===== PULSE ===== */
     @keyframes pulse {
-      0% {
-        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
-      }
-      70% {
-        box-shadow: 0 0 0 15px rgba(255, 215, 0, 0);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
-      }
+      0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
     }
 
-    /* ===== ICON NHẢY ===== */
     @keyframes bounce {
       0%, 100% { transform: translate(-50%, 0); }
       50% { transform: translate(-50%, -6px); }
@@ -86,8 +143,6 @@
       white-space: nowrap;
     }
 
-    /* ===== VỊ TRÍ (THEO % NÊN KHÔNG BỊ LỆCH KHI SCALE) ===== */
-
     .doc {
       left: 72.5%;
       top: 70.2%;
@@ -102,38 +157,44 @@
       width: 12.8%;
       height: 20.6%;
       animation: pulse 2s infinite;
-      animation-delay: 1s; /* lệch pha */
+      animation-delay: 1s;
     }
-
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+  <div class="intro">
+    <div class="intro-box">
+      <div class="tag">CHÀO MỪNG CÁC BẠN ĐẾN VỚI SÂN CHƠI CỦA KHOA HÀNG KHÔNG VŨ TRỤ</div>
+      <h1>Robot Mê Cung</h1>
+      <p>Công nghệ · Bản lĩnh · Sáng tạo</p>
+    </div>
+  </div>
 
-    <!-- ẢNH POSTER -->
-    <img 
-      src="https://uploads.onecompiler.io/43n2pjfqw/44prta6qq/Poster.jpg" 
-      class="poster"
-    >
+  <div class="page">
+    <div class="container">
 
-    <!-- TÀI LIỆU -->
-    <a class="btn doc"
-       href="http://bit.ly/4dzSNSg"
-       target="_blank">
-       <div class="icon">📄</div>
-       <div class="label">Tài liệu chi tiết</div>
-    </a>
+      <img 
+        src="https://uploads.onecompiler.io/43n2pjfqw/44prta6qq/Poster.jpg" 
+        class="poster"
+      >
 
-    <!-- ĐĂNG KÝ -->
-    <a class="btn register"
-       href="https://forms.gle/KQKUknf6ktijzLQ27"
-       target="_blank">
-       <div class="icon">📝</div>
-       <div class="label">Đăng ký tham gia</div>
-    </a>
+      <a class="btn doc"
+         href="http://bit.ly/4dzSNSg"
+         target="_blank">
+         <div class="icon">📄</div>
+         <div class="label">Tài liệu chi tiết</div>
+      </a>
 
+      <a class="btn register"
+         href="https://forms.gle/KQKUknf6ktijzLQ27"
+         target="_blank">
+         <div class="icon">📝</div>
+         <div class="label">Đăng ký tham gia</div>
+      </a>
+
+    </div>
   </div>
 
 </body>
