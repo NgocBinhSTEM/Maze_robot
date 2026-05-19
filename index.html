@@ -6,6 +6,8 @@
 <title>Cuộc thi Robot mê cung 2026</title>
 
 <style>
+
+/* ===== GLOBAL ===== */
 body {
   margin: 0;
   background: radial-gradient(circle at top, #123b7a, #061b45);
@@ -14,7 +16,7 @@ body {
   overflow: hidden;
 }
 
-/* INTRO */
+/* ===== INTRO ===== */
 .intro {
   position: fixed;
   inset: 0;
@@ -49,7 +51,7 @@ body {
   100% { opacity: 0; visibility: hidden; }
 }
 
-/* PAGE */
+/* ===== PAGE ===== */
 .page {
   min-height: 100vh;
   display: flex;
@@ -63,7 +65,7 @@ body {
   100% { opacity: 1; }
 }
 
-/* POSTER */
+/* ===== POSTER ===== */
 .container {
   position: relative;
   height: 90vh;
@@ -73,7 +75,7 @@ body {
   box-shadow: 0 20px 60px rgba(0,0,0,.55);
 }
 
-/* RADAR SCAN */
+/* ===== RADAR ===== */
 .container::before {
   content: "";
   position: absolute;
@@ -101,22 +103,15 @@ body {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  display: block;
 }
 
-/* HOTSPOT DESKTOP */
+/* ===== DESKTOP HOTSPOT ===== */
 .btn {
   position: absolute;
   z-index: 3;
   border: 3px dashed gold;
   border-radius: 12px;
   background: rgba(255,215,0,0.15);
-  cursor: pointer;
-}
-
-.btn:hover {
-  transform: scale(1.05);
-  background: rgba(255,215,0,0.35);
 }
 
 @keyframes pulse {
@@ -141,22 +136,19 @@ body {
   animation-delay: 1s;
 }
 
-/* Nút mobile ẩn mặc định trên desktop */
+/* ===== MOBILE BUTTON ===== */
 .mobile-actions {
   display: none;
 }
 
-/* SHAKE */
+/* attention */
 @keyframes attentionShake {
   0%, 100% { transform: translateX(0); }
-  10% { transform: translateX(-2px); }
-  20% { transform: translateX(2px); }
-  30% { transform: translateX(-2px); }
+  20% { transform: translateX(-2px); }
   40% { transform: translateX(2px); }
-  50% { transform: translateX(0); }
 }
 
-/* Hiện nút sau intro */
+/* show */
 @keyframes showButtons {
   from {
     opacity: 0;
@@ -168,7 +160,7 @@ body {
   }
 }
 
-/* MOBILE */
+/* ===== MOBILE ===== */
 @media (max-width: 768px) {
 
   body {
@@ -180,16 +172,13 @@ body {
   }
 
   .intro {
-    animation: introOut 1.5s ease forwards;
+    animation: introOut 1.4s ease forwards;
   }
 
   .page {
     animation: posterIn 1.8s ease forwards;
     width: 100vw;
     height: 100svh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
   .container {
@@ -208,63 +197,68 @@ body {
     display: none;
   }
 
+  /* ===== NÚT DÀI NGANG ===== */
   .mobile-actions {
     position: fixed;
-    z-index: 20;
     bottom: calc(14px + env(safe-area-inset-bottom));
     left: 50%;
     transform: translateX(-50%);
+    
     display: flex;
     gap: 10px;
 
-    padding: 8px;
-    border-radius: 18px;
+    width: 92%;
+    max-width: 420px;
 
-    background: rgba(0,0,0,0.42);
+    padding: 6px;
+
+    border-radius: 20px;
+    background: rgba(0,0,0,0.45);
     backdrop-filter: blur(10px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.45);
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 
     opacity: 0;
     pointer-events: none;
 
     animation: showButtons 0.6s ease forwards;
-    animation-delay: 1.55s;
+    animation-delay: 1.6s;
   }
 
   .mobile-actions a {
+    flex: 1;
+
     text-decoration: none;
     color: white;
     font-weight: 700;
-    padding: 10px 13px;
-    border-radius: 13px;
-    font-size: 13px;
+
+    padding: 12px 10px;
+
+    border-radius: 14px;
+    font-size: 14px;
 
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
+    gap: 8px;
 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    transition: 0.2s;
-    white-space: nowrap;
-  }
-
-  .mobile-actions a:active {
-    transform: scale(0.95);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
   }
 
   .mobile-actions span {
-    font-size: 16px;
+    font-size: 18px;
   }
 
-  .mobile-actions .doc-btn {
+  .doc-btn {
     background: linear-gradient(135deg, #0066ff, #00aaff);
   }
 
-  .mobile-actions .reg-btn {
+  .reg-btn {
     background: linear-gradient(135deg, #ff3d3d, #ff7a00);
-    animation: attentionShake 2.5s infinite;
+    animation: attentionShake 2.2s infinite;
   }
 }
+
 </style>
 </head>
 
@@ -279,12 +273,10 @@ body {
 
 <div class="page">
   <div class="container">
-
     <img src="https://uploads.onecompiler.io/43n2pjfqw/44prta6qq/Poster.jpg" class="poster">
 
     <a class="btn doc" href="http://bit.ly/4dzSNSg" target="_blank"></a>
     <a class="btn register" href="https://forms.gle/KQKUknf6ktijzLQ27" target="_blank"></a>
-
   </div>
 </div>
 
@@ -292,7 +284,6 @@ body {
   <a href="http://bit.ly/4dzSNSg" target="_blank" class="doc-btn">
     <span>📄</span> Tài liệu
   </a>
-
   <a href="https://forms.gle/KQKUknf6ktijzLQ27" target="_blank" class="reg-btn">
     <span>📝</span> Đăng ký
   </a>
