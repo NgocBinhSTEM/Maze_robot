@@ -30,7 +30,6 @@
       border-radius: 12px;
       background: rgba(255, 215, 0, 0.15);
       cursor: pointer;
-      animation: pulse 2s infinite;
       transition: 0.2s;
     }
 
@@ -40,7 +39,7 @@
       transform: scale(1.05);
     }
 
-    /* ===== HIỆU ỨNG PULSE ===== */
+    /* ===== PULSE ===== */
     @keyframes pulse {
       0% {
         box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
@@ -53,9 +52,15 @@
       }
     }
 
+    /* ===== BOUNCE ICON ===== */
+    @keyframes bounce {
+      0%, 100% { transform: translate(-50%, 0); }
+      50% { transform: translate(-50%, -6px); }
+    }
+
     .label {
       position: absolute;
-      bottom: -30px;
+      bottom: -34px;
       left: 50%;
       transform: translateX(-50%);
       background: #001c54;
@@ -67,6 +72,15 @@
       white-space: nowrap;
     }
 
+    .icon {
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 22px;
+      animation: bounce 1.2s infinite;
+    }
+
     /* ===== VỊ TRÍ ===== */
 
     .doc {
@@ -74,6 +88,7 @@
       top: 70.2%;
       width: 13.6%;
       height: 20.6%;
+      animation: pulse 2s infinite;
     }
 
     .register {
@@ -81,6 +96,8 @@
       top: 70.2%;
       width: 12.8%;
       height: 20.6%;
+      animation: pulse 2s infinite;
+      animation-delay: 1s; /* lệch pha */
     }
 
   </style>
@@ -95,14 +112,16 @@
     <a class="btn doc"
        href="http://bit.ly/4dzSNSg"
        target="_blank">
-       <div class="label">📄 Tài liệu chi tiết</div>
+       <div class="icon">📄</div>
+       <div class="label">Tài liệu chi tiết</div>
     </a>
 
     <!-- ĐĂNG KÝ -->
     <a class="btn register"
        href="https://forms.gle/KQKUknf6ktijzLQ27"
        target="_blank">
-       <div class="label">📝 Đăng ký tham gia</div>
+       <div class="icon">📝</div>
+       <div class="label">Đăng ký tham gia</div>
     </a>
 
   </div>
