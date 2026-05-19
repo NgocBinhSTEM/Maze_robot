@@ -3,20 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cuộc thi "Robot mê cung" năm 2026</title>
+<title>Cuộc thi Robot mê cung 2026</title>
 
 <style>
-
-/* ===== GLOBAL ===== */
 body {
   margin: 0;
   background: radial-gradient(circle at top, #123b7a, #061b45);
   min-height: 100vh;
-  font-family: Arial;
+  font-family: Arial, Helvetica, sans-serif;
   overflow: hidden;
 }
 
-/* ===== INTRO (DESKTOP) ===== */
+/* INTRO */
 .intro {
   position: fixed;
   inset: 0;
@@ -35,13 +33,15 @@ body {
 
 .intro-box h1 {
   font-size: clamp(32px, 6vw, 72px);
-  text-shadow: 0 0 20px gold;
+  text-shadow: 0 0 25px gold;
 }
 
 .intro-box p {
-  font-size: clamp(18px, 2.5vw, 32px); /* 👈 tăng size */
+  font-size: clamp(18px, 2.5vw, 32px);
   letter-spacing: 3px;
-  font-weight: 600;
+  font-weight: bold;
+  color: #00eaff;
+  text-shadow: 0 0 10px #00eaff;
 }
 
 @keyframes introOut {
@@ -49,13 +49,13 @@ body {
   100% { opacity: 0; visibility: hidden; }
 }
 
-/* ===== PAGE ===== */
+/* PAGE */
 .page {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: posterIn 3s ease forwards;
+  animation: posterIn 2.5s ease forwards;
 }
 
 @keyframes posterIn {
@@ -63,23 +63,51 @@ body {
   100% { opacity: 1; }
 }
 
-/* ===== POSTER ===== */
+/* POSTER */
 .container {
   position: relative;
   height: 90vh;
   aspect-ratio: 1536 / 1024;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.55);
+}
+
+/* RADAR SCAN */
+.container::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 300deg,
+    rgba(0, 234, 255, 0.35) 340deg,
+    transparent 360deg
+  );
+  animation: radarScan 4s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes radarScan {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .poster {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
   object-fit: contain;
   display: block;
 }
 
-/* ===== HOTSPOT BUTTON ===== */
+/* HOTSPOT */
 .btn {
   position: absolute;
+  z-index: 3;
   border: 3px dashed gold;
   border-radius: 12px;
   background: rgba(255,215,0,0.15);
@@ -91,7 +119,6 @@ body {
   background: rgba(255,215,0,0.35);
 }
 
-/* Pulse */
 @keyframes pulse {
   0% { box-shadow: 0 0 0 0 rgba(255,215,0,0.7); }
   70% { box-shadow: 0 0 0 15px rgba(255,215,0,0); }
@@ -114,35 +141,48 @@ body {
   animation-delay: 1s;
 }
 
-/* ===== MOBILE ===== */
+/* ATTENTION SHAKE */
+@keyframes attentionShake {
+  0%, 100% { transform: translateX(0); }
+  10% { transform: translateX(-2px); }
+  20% { transform: translateX(2px); }
+  30% { transform: translateX(-2px); }
+  40% { transform: translateX(2px); }
+  50% { transform: translateX(0); }
+}
+
+/* MOBILE ACTIONS - ẩn trên desktop */
+.mobile-actions {
+  display: none;
+}
+
+/* MOBILE */
 @media (max-width: 768px) {
 
   body {
     overflow: hidden;
+    min-height: 100svh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100svh;
   }
 
   .intro {
-    display: none;
+    animation: introOut 1.2s ease forwards;
   }
 
   .page {
-    animation: none;
+    animation: posterIn 1.5s ease forwards;
     width: 100vw;
     height: 100svh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 90px;
+    padding-bottom: 112px;
   }
 
   .container {
     width: 100vw;
     height: auto;
     aspect-ratio: 1536 / 1024;
+    border-radius: 0;
   }
 
   .poster {
@@ -150,45 +190,64 @@ body {
     height: auto;
   }
 
-  /* Ẩn hotspot nhỏ */
   .btn {
     display: none;
   }
 
-  /* ===== ACTION BAR ===== */
   .mobile-actions {
     position: fixed;
+    z-index: 20;
     bottom: 0;
     left: 0;
     right: 0;
+    padding: 14px 14px calc(14px + env(safe-area-inset-bottom));
     display: flex;
-    gap: 10px;
-    padding: 12px;
-    background: linear-gradient(to top, rgba(0,0,0,.9), rgba(0,0,0,.5));
+    gap: 12px;
+    background: linear-gradient(to top, rgba(0,0,0,.95), rgba(0,0,0,.58));
+    backdrop-filter: blur(10px);
   }
 
   .mobile-actions a {
     flex: 1;
-    text-align: center;
     text-decoration: none;
     color: white;
     font-weight: bold;
-    padding: 14px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #0047b3, #0077ff);
+    padding: 14px 10px;
+    border-radius: 18px;
+    text-align: center;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 6px 22px rgba(0,0,0,.45);
+    transition: 0.2s;
   }
 
-  .mobile-actions a:last-child {
-    background: linear-gradient(135deg, #b00000, #ff2d2d);
+  .mobile-actions a:active {
+    transform: scale(0.95);
+  }
+
+  .mobile-actions span {
+    font-size: 22px;
+  }
+
+  .mobile-actions .doc-btn {
+    background: linear-gradient(135deg, #0066ff, #00aaff);
+    box-shadow: 0 0 22px rgba(0,170,255,.65);
+  }
+
+  .mobile-actions .reg-btn {
+    background: linear-gradient(135deg, #ff0033, #ff6600);
+    box-shadow: 0 0 24px rgba(255,80,0,.7);
+    animation: attentionShake 2.2s infinite;
   }
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- INTRO -->
 <div class="intro">
   <div class="intro-box">
     <h1>Robot Mê Cung</h1>
@@ -196,7 +255,6 @@ body {
   </div>
 </div>
 
-<!-- MAIN -->
 <div class="page">
   <div class="container">
 
@@ -208,10 +266,16 @@ body {
   </div>
 </div>
 
-<!-- MOBILE BUTTON -->
 <div class="mobile-actions">
-  <a href="http://bit.ly/4dzSNSg" target="_blank">📄 Tài liệu</a>
-  <a href="https://forms.gle/KQKUknf6ktijzLQ27" target="_blank">📝 Đăng ký</a>
+  <a href="http://bit.ly/4dzSNSg" target="_blank" class="doc-btn">
+    <span>📄</span>
+    Tài liệu
+  </a>
+
+  <a href="https://forms.gle/KQKUknf6ktijzLQ27" target="_blank" class="reg-btn">
+    <span>📝</span>
+    Đăng ký
+  </a>
 </div>
 
 </body>
