@@ -25,7 +25,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: introOut 2.8s ease forwards;
+  animation: introOut 2s ease forwards;
 }
 
 .intro-box {
@@ -39,7 +39,9 @@ body {
 }
 
 .intro-box p {
-  letter-spacing: 2px;
+  font-size: clamp(18px, 2.5vw, 32px); /* 👈 tăng size */
+  letter-spacing: 3px;
+  font-weight: 600;
 }
 
 @keyframes introOut {
