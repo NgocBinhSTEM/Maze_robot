@@ -6,8 +6,6 @@
 <title>Cuộc thi Robot mê cung 2026</title>
 
 <style>
-
-/* ===== GLOBAL ===== */
 body {
   margin: 0;
   background: radial-gradient(circle at top, #123b7a, #061b45);
@@ -16,39 +14,219 @@ body {
   overflow: hidden;
 }
 
-/* ===== INTRO ===== */
+/* ===== INTRO HUD QUÂN SỰ ===== */
 .intro {
   position: fixed;
   inset: 0;
   z-index: 10;
-  background: linear-gradient(rgba(0,20,60,.9), rgba(0,5,20,.95));
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at 20% 20%, rgba(0,170,255,.30), transparent 32%),
+    radial-gradient(circle at 80% 75%, rgba(0,255,180,.18), transparent 34%),
+    radial-gradient(circle at center, #09265c, #020814 82%);
+
   animation: introOut 2s ease forwards;
 }
 
+/* sao + nhiễu nhẹ */
+.intro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(2px 2px at 15% 25%, rgba(255,255,255,.9), transparent),
+    radial-gradient(1px 1px at 35% 60%, rgba(255,255,255,.8), transparent),
+    radial-gradient(2px 2px at 70% 35%, rgba(255,255,255,.9), transparent),
+    radial-gradient(1px 1px at 85% 75%, rgba(255,255,255,.8), transparent),
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: auto, auto, auto, auto, 100% 6px;
+  opacity: .55;
+  animation: twinkle 2.5s infinite alternate;
+}
+
+/* logo chìm */
+.intro::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("https://uploads.onecompiler.io/43n2pjfqw/44prta6qq/Logo%20Khoa%20HKVT_VIE.png") center no-repeat;
+  background-size: min(68vw, 560px);
+  opacity: .20;
+  filter: blur(.6px);
+  pointer-events: none;
+}
+
+/* khung HUD */
+.hud-frame {
+  position: absolute;
+  width: min(82vw, 920px);
+  height: min(75vh, 700px);
+  border: 1px solid rgba(0,234,255,.55);
+  box-shadow:
+    0 0 22px rgba(0,234,255,.25),
+    inset 0 0 28px rgba(0,234,255,.12);
+  clip-path: polygon(
+    4% 0, 96% 0, 100% 10%, 100% 90%,
+    96% 100%, 4% 100%, 0 90%, 0 10%
+  );
+  z-index: 1;
+}
+
+/* các góc ngắm */
+.hud-frame::before,
+.hud-frame::after {
+  content: "";
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  border-color: #00eaff;
+  border-style: solid;
+  opacity: .9;
+}
+
+.hud-frame::before {
+  left: 18px;
+  top: 18px;
+  border-width: 3px 0 0 3px;
+}
+
+.hud-frame::after {
+  right: 18px;
+  bottom: 18px;
+  border-width: 0 3px 3px 0;
+}
+
+/* tia quét ngang */
+.hud-scan {
+  position: absolute;
+  width: min(82vw, 920px);
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #00eaff, transparent);
+  box-shadow: 0 0 18px #00eaff;
+  z-index: 2;
+  animation: hudScan 1.8s linear infinite;
+}
+
+/* vòng radar */
+.hud-radar {
+  position: absolute;
+  width: 145px;
+  height: 145px;
+  right: calc(50% - min(41vw, 460px) + 28px);
+  bottom: calc(50% - min(24vh, 180px) - 60px);
+  border: 1px solid rgba(0,234,255,.65);
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: inset 0 0 20px rgba(0,234,255,.18);
+}
+
+.hud-radar::before {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border: 1px solid rgba(0,234,255,.35);
+  border-radius: 50%;
+}
+
+.hud-radar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(0,234,255,.45), transparent 55deg, transparent);
+  animation: radarSpin 1.5s linear infinite;
+}
+
+/* nội dung intro */
 .intro-box {
+  position: relative;
+  z-index: 3;
   text-align: center;
   color: white;
+  padding: 24px;
+}
+
+.intro-box .status {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 6px 14px;
+  border: 1px solid rgba(0,234,255,.7);
+  border-radius: 999px;
+  color: #00eaff;
+  font-size: clamp(12px, 1.5vw, 16px);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background: rgba(0,20,60,.45);
+  box-shadow: 0 0 14px rgba(0,234,255,.35);
 }
 
 .intro-box h1 {
-  font-size: clamp(32px, 6vw, 72px);
-  text-shadow: 0 0 25px gold;
+  margin: 0;
+  font-size: clamp(36px, 6vw, 76px);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: #fff;
+  text-shadow:
+    0 0 8px #fff,
+    0 0 20px #00eaff,
+    0 0 38px #008cff;
+  animation: targetGlow 1.2s infinite alternate;
 }
 
 .intro-box p {
-  font-size: clamp(18px, 2.5vw, 32px);
-  letter-spacing: 3px;
+  margin-top: 16px;
+  font-size: clamp(17px, 2.2vw, 30px);
+  letter-spacing: 4px;
   font-weight: bold;
-  color: #00eaff;
-  text-shadow: 0 0 10px #00eaff;
+  color: #ffd700;
+  text-shadow: 0 0 14px rgba(255,215,0,.85);
+}
+
+.intro-box .sub {
+  margin-top: 12px;
+  color: rgba(220,245,255,.9);
+  font-size: clamp(11px, 1.4vw, 15px);
+  letter-spacing: 2px;
+}
+
+/* animations */
+@keyframes twinkle {
+  from { opacity: .35; }
+  to { opacity: .75; }
 }
 
 @keyframes introOut {
-  0%, 60% { opacity: 1; }
+  0%, 65% { opacity: 1; }
   100% { opacity: 0; visibility: hidden; }
+}
+
+@keyframes hudScan {
+  0% { transform: translateY(-175px); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translateY(175px); opacity: 0; }
+}
+
+@keyframes radarSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes targetGlow {
+  from {
+    text-shadow:
+      0 0 8px #fff,
+      0 0 18px #00eaff,
+      0 0 32px #008cff;
+  }
+  to {
+    text-shadow:
+      0 0 12px #fff,
+      0 0 26px #ffd700,
+      0 0 48px #ff7a00;
+  }
 }
 
 /* ===== PAGE ===== */
@@ -65,7 +243,6 @@ body {
   100% { opacity: 1; }
 }
 
-/* ===== POSTER ===== */
 .container {
   position: relative;
   height: 90vh;
@@ -75,7 +252,6 @@ body {
   box-shadow: 0 20px 60px rgba(0,0,0,.55);
 }
 
-/* ===== RADAR ===== */
 .container::before {
   content: "";
   position: absolute;
@@ -84,15 +260,15 @@ body {
     from 0deg,
     transparent 0deg,
     transparent 300deg,
-    rgba(0, 234, 255, 0.35) 340deg,
+    rgba(0,234,255,.35) 340deg,
     transparent 360deg
   );
-  animation: radarScan 4s linear infinite;
+  animation: posterRadar 4s linear infinite;
   pointer-events: none;
   z-index: 2;
 }
 
-@keyframes radarScan {
+@keyframes posterRadar {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
@@ -105,7 +281,6 @@ body {
   object-fit: contain;
 }
 
-/* ===== DESKTOP HOTSPOT ===== */
 .btn {
   position: absolute;
   z-index: 3;
@@ -136,19 +311,16 @@ body {
   animation-delay: 1s;
 }
 
-/* ===== MOBILE BUTTON ===== */
 .mobile-actions {
   display: none;
 }
 
-/* attention */
 @keyframes attentionShake {
   0%, 100% { transform: translateX(0); }
   20% { transform: translateX(-2px); }
   40% { transform: translateX(2px); }
 }
 
-/* show */
 @keyframes showButtons {
   from {
     opacity: 0;
@@ -172,11 +344,41 @@ body {
   }
 
   .intro {
-    animation: introOut 1.4s ease forwards;
+    animation: introOut 1.6s ease forwards;
+  }
+
+  .intro::after {
+    background-size: 78vw;
+    opacity: .22;
+  }
+
+  .hud-frame {
+    width: 88vw;
+    height: 260px;
+  }
+
+  .hud-radar {
+    width: 82px;
+    height: 82px;
+    right: 8vw;
+    bottom: calc(50% - 130px + 12px);
+    opacity: .85;
+  }
+
+  .hud-scan {
+    width: 88vw;
+  }
+
+  .intro-box h1 {
+    letter-spacing: 2px;
+  }
+
+  .intro-box p {
+    letter-spacing: 2px;
   }
 
   .page {
-    animation: posterIn 1.8s ease forwards;
+    animation: posterIn 1.85s ease forwards;
     width: 100vw;
     height: 100svh;
   }
@@ -197,52 +399,40 @@ body {
     display: none;
   }
 
-  /* ===== NÚT DÀI NGANG ===== */
   .mobile-actions {
     position: fixed;
     bottom: calc(14px + env(safe-area-inset-bottom));
     left: 50%;
     transform: translateX(-50%);
-    
     display: flex;
     gap: 10px;
-
     width: 92%;
     max-width: 420px;
-
     padding: 6px;
-
     border-radius: 20px;
-    background: rgba(0,0,0,0.45);
+    background: rgba(0,0,0,.45);
     backdrop-filter: blur(10px);
-
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-
+    box-shadow: 0 10px 30px rgba(0,0,0,.5);
     opacity: 0;
     pointer-events: none;
-
-    animation: showButtons 0.6s ease forwards;
-    animation-delay: 1.6s;
+    animation: showButtons .6s ease forwards;
+    animation-delay: 1.7s;
+    z-index: 20;
   }
 
   .mobile-actions a {
     flex: 1;
-
     text-decoration: none;
     color: white;
     font-weight: 700;
-
     padding: 12px 10px;
-
     border-radius: 14px;
     font-size: 14px;
-
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-
-    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+    box-shadow: 0 6px 16px rgba(0,0,0,.4);
   }
 
   .mobile-actions span {
@@ -255,17 +445,21 @@ body {
 
   .reg-btn {
     background: linear-gradient(135deg, #ff3d3d, #ff7a00);
-    animation: attentionShake 2.2s infinite;
+    animation: attentionShake 4s infinite;
   }
 }
-
 </style>
 </head>
 
 <body>
 
 <div class="intro">
+  <div class="hud-frame"></div>
+  <div class="hud-scan"></div>
+  <div class="hud-radar"></div>
+
   <div class="intro-box">
+    <div class="status">KHOA HÀNG KHÔNG VŨ TRỤ </div>
     <h1>Robot Mê Cung</h1>
     <p>Công nghệ • Bản lĩnh • Sáng tạo</p>
   </div>
