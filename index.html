@@ -23,16 +23,13 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-
   background:
     radial-gradient(circle at 20% 20%, rgba(0,170,255,.30), transparent 32%),
     radial-gradient(circle at 80% 75%, rgba(0,255,180,.18), transparent 34%),
     radial-gradient(circle at center, #09265c, #020814 82%);
-
   animation: introOut 2s ease forwards;
 }
 
-/* sao + nhiễu nhẹ */
 .intro::before {
   content: "";
   position: absolute;
@@ -48,22 +45,22 @@ body {
   animation: twinkle 2.5s infinite alternate;
 }
 
-/* logo chìm */
+/* Logo chìm - dùng vmin để xoay ngang mobile không bị to */
 .intro::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("https://uploads.onecompiler.io/43n2pjfqw/44prta6qq/logo.png") center no-repeat;
-  background-size: min(68vw, 560px);
+  background: url("https://uploads.onecompiler.io/43n2pjfqw/44prta6qq/Logo%20Khoa%20HKVT_VIE.png") center no-repeat;
+  background-size: clamp(190px, 58vmin, 560px);
   opacity: .20;
   filter: blur(.6px);
   pointer-events: none;
 }
 
-/* khung HUD */
+/* Khung HUD */
 .hud-frame {
   position: absolute;
-  width: min(82vw, 920px);
+  width: min(92vw, 1100px);
   height: min(75vh, 700px);
   border: 1px solid rgba(0,234,255,.55);
   box-shadow:
@@ -76,7 +73,6 @@ body {
   z-index: 1;
 }
 
-/* các góc ngắm */
 .hud-frame::before,
 .hud-frame::after {
   content: "";
@@ -100,10 +96,10 @@ body {
   border-width: 0 3px 3px 0;
 }
 
-/* tia quét ngang */
+/* Tia quét ngang */
 .hud-scan {
   position: absolute;
-  width: min(82vw, 920px);
+  width: min(92vw, 1100px);
   height: 3px;
   background: linear-gradient(90deg, transparent, #00eaff, transparent);
   box-shadow: 0 0 18px #00eaff;
@@ -111,13 +107,13 @@ body {
   animation: hudScan 1.8s linear infinite;
 }
 
-/* vòng radar */
+/* Radar trang đầu */
 .hud-radar {
   position: absolute;
   width: 145px;
   height: 145px;
-  right: calc(50% - min(41vw, 460px) + 28px);
-  bottom: calc(50% - min(24vh, 180px) - 60px);
+  right: calc(50% - min(46vw, 550px) + 36px);
+  bottom: calc(50% - min(37.5vh, 350px) + 28px);
   border: 1px solid rgba(0,234,255,.65);
   border-radius: 50%;
   z-index: 2;
@@ -141,7 +137,7 @@ body {
   animation: radarSpin 1.5s linear infinite;
 }
 
-/* nội dung intro */
+/* Text intro */
 .intro-box {
   position: relative;
   z-index: 3;
@@ -186,14 +182,7 @@ body {
   text-shadow: 0 0 14px rgba(255,215,0,.85);
 }
 
-.intro-box .sub {
-  margin-top: 12px;
-  color: rgba(220,245,255,.9);
-  font-size: clamp(11px, 1.4vw, 15px);
-  letter-spacing: 2px;
-}
-
-/* animations */
+/* Animations */
 @keyframes twinkle {
   from { opacity: .35; }
   to { opacity: .75; }
@@ -205,9 +194,9 @@ body {
 }
 
 @keyframes hudScan {
-  0% { transform: translateY(-175px); opacity: 0; }
+  0% { transform: translateY(-38vh); opacity: 0; }
   15% { opacity: 1; }
-  100% { transform: translateY(175px); opacity: 0; }
+  100% { transform: translateY(38vh); opacity: 0; }
 }
 
 @keyframes radarSpin {
@@ -332,7 +321,7 @@ body {
   }
 }
 
-/* ===== MOBILE ===== */
+/* ===== MOBILE DỌC ===== */
 @media (max-width: 768px) {
 
   body {
@@ -348,7 +337,7 @@ body {
   }
 
   .intro::after {
-    background-size: 78vw;
+    background-size: clamp(180px, 55vmin, 360px);
     opacity: .22;
   }
 
@@ -357,16 +346,16 @@ body {
     height: 260px;
   }
 
+  .hud-scan {
+    width: 88vw;
+  }
+
   .hud-radar {
     width: 82px;
     height: 82px;
     right: 8vw;
     bottom: calc(50% - 130px + 12px);
     opacity: .85;
-  }
-
-  .hud-scan {
-    width: 88vw;
   }
 
   .intro-box h1 {
@@ -448,6 +437,46 @@ body {
     animation: attentionShake 4s infinite;
   }
 }
+
+/* ===== MOBILE XOAY NGANG ===== */
+@media (max-width: 768px) and (orientation: landscape) {
+
+  .intro::after {
+    background-size: clamp(140px, 45vmin, 260px);
+    opacity: .18;
+  }
+
+  .hud-frame {
+    width: 72vw;
+    height: 72vh;
+  }
+
+  .hud-scan {
+    width: 72vw;
+  }
+
+  .hud-radar {
+    width: 68px;
+    height: 68px;
+    right: 12vw;
+    bottom: 10vh;
+  }
+
+  .intro-box h1 {
+    font-size: clamp(24px, 6vh, 44px);
+  }
+
+  .intro-box p {
+    font-size: clamp(14px, 3.5vh, 22px);
+    margin-top: 8px;
+  }
+
+  .intro-box .status {
+    font-size: 11px;
+    margin-bottom: 8px;
+    padding: 5px 10px;
+  }
+}
 </style>
 </head>
 
@@ -459,7 +488,7 @@ body {
   <div class="hud-radar"></div>
 
   <div class="intro-box">
-    <div class="status">KHOA HÀNG KHÔNG VŨ TRỤ </div>
+    <div class="status">KHOA HÀNG KHÔNG VŨ TRỤ</div>
     <h1>Robot Mê Cung</h1>
     <p>Công nghệ • Bản lĩnh • Sáng tạo</p>
   </div>
