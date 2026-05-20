@@ -496,26 +496,32 @@ body {
   }
 
   .mobile-actions {
-    position: fixed;
-    bottom: calc(14px + env(safe-area-inset-bottom));
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
-    width: 92%;
-    max-width: 420px;
-    padding: 6px;
-    border-radius: 20px;
-    background: rgba(0,0,0,.45);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 30px rgba(0,0,0,.5);
-    opacity: 0;
-    pointer-events: none;
-    animation: showButtons .6s ease forwards;
-    animation-delay: 1.7s;
-    z-index: 30;
-  }
+  position: fixed;
 
+  bottom: calc(20px + env(safe-area-inset-bottom)); /* 👈 FIX CHÍNH */
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 10px;
+
+  width: min(92%, 420px);
+  padding: 6px;
+
+  border-radius: 20px;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(10px);
+
+  box-shadow: 0 10px 30px rgba(0,0,0,.5);
+
+  opacity: 0;
+  pointer-events: none;
+
+  animation: showButtons .6s ease forwards;
+  animation-delay: 1.7s;
+
+  z-index: 30;
+}
   .mobile-actions a {
     flex: 1;
     text-decoration: none;
@@ -548,6 +554,16 @@ body {
 /* ===== MOBILE XOAY NGANG ===== */
 @media (max-width: 768px) and (orientation: landscape) {
 
+  .mobile-actions {
+    bottom: 10px;          /* 👈 giảm xuống vừa đủ */
+    width: 70%;            /* 👈 nhỏ lại cho đỡ chiếm chỗ */
+    max-width: 380px;
+  }
+
+  .mobile-actions a {
+    padding: 10px;
+    font-size: 13px;
+  }
   .intro::after {
     background-size: clamp(140px, 45vmin, 260px);
     opacity: .18;
