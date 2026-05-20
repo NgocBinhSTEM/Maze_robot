@@ -14,18 +14,16 @@ body {
   overflow: hidden;
 }
 
-/* ===== MENU TRANG 2 ===== */
+/* ===== DESKTOP MENU ===== */
 .quick-menu {
   position: fixed;
   right: clamp(28px, 3vw, 60px);
   top: 50%;
   transform: translateY(-50%);
   z-index: 20;
-
   display: flex;
   flex-direction: column;
   gap: 12px;
-
   opacity: 0;
   pointer-events: none;
   animation: showMenu .6s ease forwards;
@@ -43,9 +41,7 @@ body {
   background: rgba(0,40,90,.65);
   border: 1px solid rgba(0,234,255,.45);
   backdrop-filter: blur(12px);
-  box-shadow:
-    0 8px 22px rgba(0,0,0,.28),
-    inset 0 0 8px rgba(0,234,255,.08);
+  box-shadow: 0 8px 22px rgba(0,0,0,.28), inset 0 0 8px rgba(0,234,255,.08);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -55,9 +51,7 @@ body {
 .quick-menu a:hover {
   transform: translateX(-5px);
   background: rgba(0,140,255,.85);
-  box-shadow:
-    0 10px 26px rgba(0,0,0,.35),
-    0 0 18px rgba(0,234,255,.5);
+  box-shadow: 0 10px 26px rgba(0,0,0,.35), 0 0 18px rgba(0,234,255,.5);
 }
 
 .quick-menu .icon {
@@ -66,15 +60,20 @@ body {
   text-align: center;
 }
 
-.text-short {
-  display: none;
-}
-
 @keyframes showMenu {
   to {
     opacity: 1;
     pointer-events: auto;
   }
+}
+
+/* ===== MOBILE MENU ===== */
+.menu-toggle {
+  display: none;
+}
+
+.mobile-menu {
+  display: none;
 }
 
 /* ===== INTRO HUD QUÂN SỰ ===== */
@@ -124,13 +123,8 @@ body {
   width: min(92vw, 1100px);
   height: min(75vh, 700px);
   border: 1px solid rgba(0,234,255,.55);
-  box-shadow:
-    0 0 22px rgba(0,234,255,.25),
-    inset 0 0 28px rgba(0,234,255,.12);
-  clip-path: polygon(
-    4% 0, 96% 0, 100% 10%, 100% 90%,
-    96% 100%, 4% 100%, 0 90%, 0 10%
-  );
+  box-shadow: 0 0 22px rgba(0,234,255,.25), inset 0 0 28px rgba(0,234,255,.12);
+  clip-path: polygon(4% 0, 96% 0, 100% 10%, 100% 90%, 96% 100%, 4% 100%, 0 90%, 0 10%);
   z-index: 1;
 }
 
@@ -224,10 +218,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 4px;
   color: #fff;
-  text-shadow:
-    0 0 8px #fff,
-    0 0 20px #00eaff,
-    0 0 38px #008cff;
+  text-shadow: 0 0 8px #fff, 0 0 20px #00eaff, 0 0 38px #008cff;
   animation: targetGlow 1.2s infinite alternate;
 }
 
@@ -262,16 +253,10 @@ body {
 
 @keyframes targetGlow {
   from {
-    text-shadow:
-      0 0 8px #fff,
-      0 0 18px #00eaff,
-      0 0 32px #008cff;
+    text-shadow: 0 0 8px #fff, 0 0 18px #00eaff, 0 0 32px #008cff;
   }
   to {
-    text-shadow:
-      0 0 12px #fff,
-      0 0 26px #ffd700,
-      0 0 48px #ff7a00;
+    text-shadow: 0 0 12px #fff, 0 0 26px #ffd700, 0 0 48px #ff7a00;
   }
 }
 
@@ -281,10 +266,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
   padding-left: clamp(48px, 5vw, 96px);
   padding-right: clamp(130px, 14vw, 210px);
-
   animation: posterIn 2.5s ease forwards;
 }
 
@@ -307,13 +290,7 @@ body {
   content: "";
   position: absolute;
   inset: -40%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    transparent 300deg,
-    rgba(0,234,255,.35) 340deg,
-    transparent 360deg
-  );
+  background: conic-gradient(from 0deg, transparent 0deg, transparent 300deg, rgba(0,234,255,.35) 340deg, transparent 360deg);
   animation: posterRadar 4s linear infinite;
   pointer-events: none;
   z-index: 2;
@@ -384,7 +361,7 @@ body {
   }
 }
 
-/* ===== MOBILE DỌC ===== */
+/* ===== MOBILE ===== */
 @media (max-width: 768px) {
 
   body {
@@ -454,36 +431,68 @@ body {
   }
 
   .quick-menu {
-    top: 8px;
-    left: 8px;
-    right: 8px;
-    transform: none;
-    flex-direction: row;
-    overflow-x: auto;
-    gap: 6px;
-    z-index: 20;
-  }
-
-  .quick-menu a {
-    min-width: auto;
-    flex: 0 0 auto;
-    font-size: 11px;
-    padding: 7px 9px;
-    border-radius: 999px;
-    gap: 5px;
-  }
-
-  .quick-menu .icon {
-    font-size: 14px;
-    width: auto;
-  }
-
-  .text-full {
     display: none;
   }
 
-  .text-short {
-    display: inline;
+  .menu-toggle {
+    display: flex;
+    position: fixed;
+    top: 10px;
+    right: 12px;
+    z-index: 40;
+    width: 44px;
+    height: 44px;
+    background: rgba(0,40,90,.82);
+    border: 1px solid rgba(0,234,255,.6);
+    border-radius: 12px;
+    color: white;
+    font-size: 23px;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 22px rgba(0,0,0,.42);
+    cursor: pointer;
+  }
+
+  .menu-toggle.active {
+    background: rgba(0,140,255,.85);
+    box-shadow: 0 0 22px rgba(0,234,255,.55);
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 35;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 70px 16px 18px;
+    background: linear-gradient(to bottom, rgba(0,10,40,.96), rgba(0,20,60,.88));
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(0,234,255,.32);
+    box-shadow: 0 12px 34px rgba(0,0,0,.45);
+    transform: translateY(-110%);
+    transition: .32s ease;
+  }
+
+  .mobile-menu.show {
+    transform: translateY(0);
+  }
+
+  .mobile-menu a {
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    padding: 13px 14px;
+    border-radius: 14px;
+    background: rgba(0,70,150,.55);
+    border: 1px solid rgba(0,234,255,.38);
+    box-shadow: inset 0 0 10px rgba(0,234,255,.07);
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
   .mobile-actions {
@@ -504,7 +513,7 @@ body {
     pointer-events: none;
     animation: showButtons .6s ease forwards;
     animation-delay: 1.7s;
-    z-index: 20;
+    z-index: 30;
   }
 
   .mobile-actions a {
@@ -581,12 +590,23 @@ body {
 <body>
 
 <div class="quick-menu">
-  <a href="#"><span class="icon">🏠</span><span class="text-full">Trang chủ</span><span class="text-short">Home</span></a>
-  <a href="#"><span class="icon">📢</span><span class="text-full">Thông báo</span><span class="text-short">TB</span></a>
-  <a href="http://bit.ly/4dzSNSg" target="_blank"><span class="icon">📄</span><span class="text-full">Tài liệu kỹ thuật</span><span class="text-short">TL</span></a>
-  <a href="#"><span class="icon">🎥</span><span class="text-full">Video hướng dẫn</span><span class="text-short">Video</span></a>
-  <a href="#"><span class="icon">🖼️</span><span class="text-full">Thư viện</span><span class="text-short">Ảnh</span></a>
-  <a href="#"><span class="icon">💬</span><span class="text-full">Trợ giúp</span><span class="text-short">Help</span></a>
+  <a href="#"><span class="icon">🏠</span> Trang chủ</a>
+  <a href="#"><span class="icon">📢</span> Thông báo</a>
+  <a href="http://bit.ly/4dzSNSg" target="_blank"><span class="icon">📄</span> Tài liệu kỹ thuật</a>
+  <a href="#"><span class="icon">🎥</span> Video hướng dẫn</a>
+  <a href="#"><span class="icon">🖼️</span> Thư viện</a>
+  <a href="#"><span class="icon">💬</span> Trợ giúp</a>
+</div>
+
+<div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</div>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#">🏠 Trang chủ</a>
+  <a href="#">📢 Thông báo</a>
+  <a href="http://bit.ly/4dzSNSg" target="_blank">📄 Tài liệu kỹ thuật</a>
+  <a href="#">🎥 Video hướng dẫn</a>
+  <a href="#">🖼️ Thư viện</a>
+  <a href="#">💬 Trợ giúp</a>
 </div>
 
 <div class="intro">
@@ -612,12 +632,35 @@ body {
 
 <div class="mobile-actions">
   <a href="http://bit.ly/4dzSNSg" target="_blank" class="doc-btn">
-    <span>📄</span> Tài liệu
+    <span>📄</span> Đề thi
   </a>
   <a href="https://forms.gle/KQKUknf6ktijzLQ27" target="_blank" class="reg-btn">
     <span>📝</span> Đăng ký
   </a>
 </div>
+
+<script>
+function toggleMenu() {
+  const menu = document.getElementById("mobileMenu");
+  const btn = document.getElementById("menuToggle");
+
+  menu.classList.toggle("show");
+  btn.classList.toggle("active");
+
+  btn.textContent = menu.classList.contains("show") ? "✕" : "☰";
+}
+
+document.addEventListener("click", function(e) {
+  const menu = document.getElementById("mobileMenu");
+  const btn = document.getElementById("menuToggle");
+
+  if (!menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.classList.remove("show");
+    btn.classList.remove("active");
+    btn.textContent = "☰";
+  }
+});
+</script>
 
 </body>
 </html>
