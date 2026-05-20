@@ -45,6 +45,13 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  transition: .2s ease;
+}
+
+.quick-menu a:hover {
+  transform: translateX(-5px);
+  background: rgba(0,140,255,.85);
+  box-shadow: 0 10px 26px rgba(0,0,0,.35), 0 0 18px rgba(0,234,255,.5);
 }
 
 .quick-menu .icon {
@@ -60,7 +67,11 @@ body {
   }
 }
 
-/* ===== INTRO HUD (GIỮ NGUYÊN) ===== */
+/* ===== MOBILE MENU ===== */
+.menu-toggle { display: none; }
+.mobile-menu { display: none; }
+
+/* ===== INTRO HUD QUÂN SỰ (GIỮ NGUYÊN) ===== */
 .intro {
   position: fixed;
   inset: 0;
@@ -76,27 +87,99 @@ body {
   animation: introOut 3s ease forwards;
 }
 
-.intro-box {
-  position: relative;
-  z-index: 3;
-  text-align: center;
-  color: white;
+.intro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(2px 2px at 15% 25%, rgba(255,255,255,.9), transparent),
+    radial-gradient(1px 1px at 35% 60%, rgba(255,255,255,.8), transparent),
+    radial-gradient(2px 2px at 70% 35%, rgba(255,255,255,.9), transparent),
+    radial-gradient(1px 1px at 85% 75%, rgba(255,255,255,.8), transparent),
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: auto, auto, auto, auto, 100% 6px;
+  opacity: .55;
+  animation: twinkle 2.5s infinite alternate;
 }
 
-.intro-box h1 {
-  font-size: clamp(36px, 6vw, 76px);
-  text-shadow: 0 0 20px cyan;
+.intro::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("Logo Khoa HKVT_VIETNAM.webp") center no-repeat;
+  background-size: clamp(190px, 58vmin, 560px);
+  opacity: .20;
+  filter: blur(.6px);
+  pointer-events: none;
 }
 
-.intro-box p {
-  font-size: clamp(16px, 2vw, 28px);
-  color: gold;
+.hud-frame {
+  position: absolute;
+  width: min(92vw, 1100px);
+  height: min(75vh, 700px);
+  border: 1px solid rgba(0,234,255,.55);
+  box-shadow: 0 0 22px rgba(0,234,255,.25), inset 0 0 28px rgba(0,234,255,.12);
+  clip-path: polygon(4% 0, 96% 0, 100% 10%, 100% 90%, 96% 100%, 4% 100%, 0 90%, 0 10%);
+  z-index: 1;
 }
 
-@keyframes introOut {
-  0%, 65% { opacity: 1; }
-  100% { opacity: 0; visibility: hidden; }
+.hud-frame::before,
+.hud-frame::after {
+  content: "";
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  border-color: #00eaff;
+  border-style: solid;
+  opacity: .9;
 }
+
+.hud-frame::before {
+  left: 18px;
+  top: 18px;
+  border-width: 3px 0 0 3px;
+}
+
+.hud-frame::after {
+  right: 18px;
+  bottom: 18px;
+  border-width: 0 3px 3px 0;
+}
+
+.hud-scan {
+  position: absolute;
+  width: min(92vw, 1100px);
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #00eaff, transparent);
+  box-shadow: 0 0 18px #00eaff;
+  z-index: 2;
+  animation: hudScan 1.8s linear infinite;
+}
+
+.hud-radar {
+  position: absolute;
+  width: 145px;
+  height: 145px;
+  right: calc(50% - min(46vw, 550px) + 36px);
+  bottom: calc(50% - min(37.5vh, 350px) + 28px);
+  border: 1px solid rgba(0,234,255,.65);
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: inset 0 0 20px rgba(0,234,255,.18);
+}
+
+.hud-radar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(0,234,255,.45), transparent 55deg, transparent);
+  animation: radarSpin 1.5s linear infinite;
+}
+
+@keyframes introOut { 0%,65%{opacity:1}100%{opacity:0;visibility:hidden} }
+@keyframes hudScan { 0%{transform:translateY(-38vh)}100%{transform:translateY(38vh)} }
+@keyframes radarSpin { to{transform:rotate(360deg)} }
 
 /* ===== PAGE ===== */
 .page {
@@ -104,13 +187,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-right: 220px;
+  padding-left: clamp(48px, 5vw, 96px);
+  padding-right: clamp(130px, 14vw, 210px);
 }
 
 .container {
-  height: 85vh;
-  aspect-ratio: 1536 / 1024;
   position: relative;
+  height: min(88vh, 58vw);
+  aspect-ratio: 1536 / 1024;
 }
 
 .poster {
@@ -119,20 +203,16 @@ body {
   object-fit: contain;
 }
 
-/* ===== HOTSPOT ===== */
 .btn {
   position: absolute;
   border: 3px dashed gold;
-  border-radius: 10px;
+  border-radius: 12px;
 }
 
-.doc { left:72%; top:70%; width:14%; height:21%; }
-.register { left:86%; top:70%; width:13%; height:21%; }
+.doc { left:72.5%; top:70.2%; width:13.6%; height:20.6%; }
+.register { left:86.2%; top:70.2%; width:12.8%; height:20.6%; }
 
 /* ===== MOBILE ===== */
-.menu-toggle { display: none; }
-.mobile-menu { display: none; }
-
 @media (max-width:768px){
 
   .quick-menu{display:none;}
@@ -166,29 +246,10 @@ body {
 
   .mobile-menu.show{transform:translateY(0);}
 
-  .mobile-menu a{
-    color:white;
-    text-decoration:none;
-    padding:12px;
-    border-radius:10px;
-    background:#123b7a;
-  }
-
-  .page{padding:0;}
-
-  .container{
-    width:100vw;
-    height:auto;
-  }
-
-  .poster{
-    width:100%;
-    height:auto;
-  }
-
+  .container{width:100vw;height:auto;}
+  .poster{width:100%;height:auto;}
   .btn{display:none;}
 
-  /* ===== FIX MOBILE CLICK ===== */
   .mobile-actions{
     position:fixed;
     bottom:calc(14px + env(safe-area-inset-bottom));
@@ -203,7 +264,7 @@ body {
     background:rgba(0,0,0,.5);
     z-index:30;
 
-    pointer-events:auto; /* FIX */
+    pointer-events:auto; /* ✅ FIX */
 
   }
 
@@ -219,29 +280,19 @@ body {
   .doc-btn{background:#0077ff;}
   .reg-btn{background:#ff3d3d;}
 }
-
-/* ===== LANDSCAPE ===== */
-@media (max-width:768px) and (orientation:landscape){
-  .mobile-actions{
-    bottom:10px;
-    width:70%;
-  }
-}
 </style>
 </head>
 
 <body>
 
-<!-- DESKTOP MENU -->
 <div class="quick-menu">
   <a href="#"><span class="icon">🏠</span> Trang chủ</a>
   <a href="#"><span class="icon">📢</span> Thông báo</a>
   <a href="https://drive.google.com/file/d/1GDow_MACvpng2_aSyfpqXLZHvnGWM7_K/view?usp=sharing" target="_blank">
-    <span class="icon">📄</span> Tài liệu
+    <span class="icon">📄</span> Tài liệu kỹ thuật
   </a>
 </div>
 
-<!-- MOBILE MENU -->
 <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
 <div class="mobile-menu" id="menu">
@@ -250,15 +301,18 @@ body {
   <a href="https://drive.google.com/file/d/1GDow_MACvpng2_aSyfpqXLZHvnGWM7_K/view?usp=sharing" target="_blank">Tài liệu</a>
 </div>
 
-<!-- INTRO -->
 <div class="intro">
+  <div class="hud-frame"></div>
+  <div class="hud-scan"></div>
+  <div class="hud-radar"></div>
+
   <div class="intro-box">
+    <div class="status">KHOA HÀNG KHÔNG VŨ TRỤ</div>
     <h1>Robot Mê Cung</h1>
     <p>Công nghệ • Bản lĩnh • Sáng tạo</p>
   </div>
 </div>
 
-<!-- MAIN -->
 <div class="page">
   <div class="container">
     <img src="Poster.webp" class="poster">
@@ -273,12 +327,16 @@ body {
   </div>
 </div>
 
-<!-- MOBILE BUTTON -->
 <div class="mobile-actions">
-  <a href="https://drive.google.com/file/d/1GDow_MACvpng2_aSyfpqXLZHvnGWM7_K/view?usp=sharing" target="_blank" class="doc-btn">
+  <a href="https://drive.google.com/file/d/1GDow_MACvpng2_aSyfpqXLZHvnGWM7_K/view?usp=sharing"
+     target="_blank"
+     class="doc-btn">
     📄 Tài liệu
   </a>
-  <a href="https://forms.gle/KQKUknf6ktijzLQ27" target="_blank" class="reg-btn">
+
+  <a href="https://forms.gle/KQKUknf6ktijzLQ27"
+     target="_blank"
+     class="reg-btn">
     📝 Đăng ký
   </a>
 </div>
